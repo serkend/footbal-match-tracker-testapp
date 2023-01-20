@@ -28,9 +28,8 @@ import java.util.*
 
 
 class MatchesInfoFragment : Fragment(), MatchesAdapter.MatchListener {
-
     lateinit var binding: FragmentMatchesInfoBinding
-    var myCalendar = Calendar.getInstance();
+    lateinit var myCalendar :Calendar;
     lateinit var viewModel: MainViewModel
     var ids: List<Int>? = null
 
@@ -42,6 +41,7 @@ class MatchesInfoFragment : Fragment(), MatchesAdapter.MatchListener {
         var db = (requireActivity().application as MainApp).database
         val tempViewModel by viewModels<MainViewModel> { MainFactory(db) }
         viewModel = tempViewModel
+        myCalendar = viewModel.myCalendar.value!!
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -68,12 +68,16 @@ class MatchesInfoFragment : Fragment(), MatchesAdapter.MatchListener {
             myCalendar.get(Calendar.MONTH),
             myCalendar.get(Calendar.DAY_OF_MONTH)
         )
+        viewModel.myCalendar.value = myCalendar
         date.show()
     }
 
     private fun updateLabel() {
         var myFormat = "yyyy-MM-dd"
         var dateFormat = SimpleDateFormat(myFormat, Locale.getDefault())
+        viewModel.myCalendar.observe(viewLifecycleOwner) {
+            myCalendar = it
+        }
         binding.etDatePicker.setText(dateFormat.format(myCalendar.time))
         viewModel.getAllMatchesInfo(binding.etDatePicker.text.toString())
     }
@@ -104,10 +108,6 @@ class MatchesInfoFragment : Fragment(), MatchesAdapter.MatchListener {
             ).show()
             binding.rvMatches.adapter = null
         }
-    }
-
-    companion object {
-        fun newInstance() = MatchesInfoFragment()
     }
 
     override fun onClick(match: Data) {

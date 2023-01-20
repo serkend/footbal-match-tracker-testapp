@@ -9,6 +9,7 @@ import com.example.footballmatchtrackertest.db.MatchesDatabase
 import com.example.footballmatchtrackertest.db.model.MatchesInfoEntity
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.*
 
 class MainViewModel(private val db: MatchesDatabase) : ViewModel() {
     val dao = db.getDao()
@@ -16,6 +17,12 @@ class MainViewModel(private val db: MatchesDatabase) : ViewModel() {
     var repo = Repository()
     val allMatches: MutableLiveData<Response<MatchesInfo>> = MutableLiveData()
     var allMatchesFromDB: LiveData<List<MatchesInfoEntity>> = dao.getAllMatches().asLiveData()
+
+    var myCalendar : MutableLiveData<Calendar> = MutableLiveData()
+
+    init{
+        myCalendar.value = Calendar.getInstance();
+    }
     fun getAllMatchesInfo(date: String) {
         viewModelScope.launch {
             allMatches.value = repo.getAllMatchesInfo(date)
