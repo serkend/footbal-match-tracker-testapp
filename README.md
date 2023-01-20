@@ -17,10 +17,10 @@ Fragment с webview
 1. Настроить обработку поворота экрана в activity +
 
 Стек для приложения:
-	Kotlin +
-	Retrofit +
-	Glide +
-  Room +
+	Kotlin +  
+	Retrofit +  
+	Glide +  
+  	Room +  
   
 
 https://user-images.githubusercontent.com/81919513/213711854-aac2d871-c107-4799-95ff-6600a842a226.mp4
