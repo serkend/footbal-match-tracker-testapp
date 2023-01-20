@@ -48,10 +48,10 @@ class SplashFragment : Fragment() {
     }
 
     private fun loadMatches() {
-//        val time = Calendar.getInstance().time
-//        val formatter = SimpleDateFormat("yyyy-MM-dd")
-//        val current = formatter.format(time)
-//        viewModel.getAllMatchesInfo(current)
+        val time = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val current = formatter.format(time)
+        viewModel.getAllMatchesInfo(current)
     }
 
     companion object {
